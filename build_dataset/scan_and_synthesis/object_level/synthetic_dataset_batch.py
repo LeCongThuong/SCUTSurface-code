@@ -26,7 +26,7 @@ def main():
     parser.add_argument('--outlier_intensity', '-oi', type=float, default=0.1)
     parser.add_argument('--Misalignment_intensity', '-mi', type=float,  default=1/20.)
     parser.add_argument('--Misalignment_angle', '-mma', type=float, default=1.)
-    parser.add_argument('--num_worker', '-nw', type=int, default=1)
+    parser.add_argument('--num_worker', '-nw', type=int, default=12)
 
     args = parser.parse_args()
     print(args)
@@ -76,7 +76,7 @@ def main():
         # number 0.01, 0.15, 0.25  intensity 0.1
         synthetic_artifects_utils.Get_outlier(In_Dir, Out_Dir, number = args.outlier_number, intensity=args.outlier_intensity, FPS=True, num_work=num_work)
     ########################################################################
-    # Get Missing Data   fps
+    # Get Missing Data   fps    
     ########################################################################
     elif args.which_artifact == 'MissingData':
         In_Dir = os.path.join(Base_dir_in, NonUniform_)
@@ -84,11 +84,11 @@ def main():
         print(In_Dir, Out_Dir, args.sever_level)
         # -3 [20 40 60] + 3
         if args.sever_level == 1:
-            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[17,23],[37,43],[57,63]], FPS=True, num_work=num_work)
+            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[0, 6],[45, 51],[84, 90]], FPS=True, num_work=num_work)
         elif args.sever_level == 2:
-            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[17,23],[37,43]], FPS=True, num_work=num_work)
+            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[45, 51], [84, 90]], FPS=True, num_work=num_work)
         elif args.sever_level == 3:
-            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[17,23]], FPS=True, num_work=num_work)
+            synthetic_artifects_utils.Get_MissingData(In_Dir, Out_Dir, zanglelist=[[84, 90]], FPS=True, num_work=num_work)
         else:
             print('error')
     ########################################################################

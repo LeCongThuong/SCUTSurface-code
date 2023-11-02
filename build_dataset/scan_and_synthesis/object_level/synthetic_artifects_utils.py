@@ -30,23 +30,21 @@ def Uniform_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_po
 
 def Get_Uniform(In_Dir, Out_Dir, FPS=True, num_work=1):
     print("Get Uniform Data")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
+    # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+    # fileslen = len(listfiles(In_Dir))
     
     cmds = []
     i = 0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ ".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, FPS, string))
-            i += 1
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ ".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, FPS, string))
+        i += 1
     data_utils.start_process_pool(Uniform_one, cmds, num_work)
 
 
@@ -74,23 +72,21 @@ def Nonuniform_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, num
 
 def Get_Noniform(In_Dir, Out_Dir, num_work=1):
     print("Get Nonuniform Data")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
+    # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+    # fileslen = len(listfiles(In_Dir))
     
     cmds = []
     i=0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ ".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, string))
-            i += 1
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ ".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        string = str(i)  + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, string))
+        i += 1
     data_utils.start_process_pool(Nonuniform_one, cmds, num_work)
 
 
@@ -120,22 +116,20 @@ def Noise_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_poin
 
 def Get_Noise(In_Dir, In_DirV, Out_Dir, anoise, FPS=False, num_work=1):
     print("Get Noise Data")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
     cmds = []
     i=0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_"+str(anoise)+".txt")
-            viewpoint_file = os.path.join(In_DirV, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, FPS, string))
-            i += 1
+        # for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
+            # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_"+str(anoise)+".txt")
+        viewpoint_file = os.path.join(In_DirV, pathsmc, "viewpoint.txt")
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, num_points, FPS, string))
+        i += 1
     data_utils.start_process_pool(Noise_one, cmds, num_work)
 
 
@@ -166,24 +160,23 @@ def Outlier_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, outlie
 
 def Get_outlier(In_Dir, Out_Dir, number, intensity = 0.15, FPS=True, num_work=1):
     print("Get Outlier Data")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
+    # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+    # fileslen = len(listfiles(In_Dir))
     cmds = []
     i = 0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ ".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, number, intensity, num_points, FPS, string))
-            i += 1
+        # for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
+            # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ ".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, number, intensity, num_points, FPS, string))
+        i += 1
     data_utils.start_process_pool(Outlier_one, cmds, num_work)
-
 
 ########################################################################
 # Get Missing Data   fps
@@ -211,23 +204,24 @@ def Missingdata_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, za
 
 def Get_MissingData(In_Dir, Out_Dir, zanglelist, FPS=False, num_work=1):
     print("Get Missing Data ")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
+    # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+    # fileslen = len(listfiles(In_Dir))
     cmds = []
     i=0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ ".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, zanglelist, num_points, FPS, string))
-            i += 1
+        # for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
+        #     listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ ".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, zanglelist, num_points, FPS, string))
+        i += 1
     data_utils.start_process_pool(Missingdata_one, cmds, num_work)     
+  
 
 
 ########################################################################
@@ -268,19 +262,19 @@ def Misalignment_one(fileidx_file, ptsssss_file, viewpoint_file, concate_file, a
 
 def Get_Missalignment(In_Dir, Out_Dir,intensity, angle=0, FPS=False, num_work=1):
     print("Get Misalignment Data")
-    listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-    fileslen = len(listfiles(In_Dir))
+    # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+    # fileslen = len(listfiles(In_Dir))
     cmds = []
     i=0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
         num_points = data_utils.howmuchpoint(pathsmc, 0)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
-            concate_file = os.path.join(Out_Dir, pathsmc, str(pathobj)+ ".txt")
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ ".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, angle, intensity, num_points, FPS, string))
+        # for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
+            # listfiles = lambda root : [os.path.join(base, f) for base, _, files in os.walk(root) if files for f in files]
+        concate_file = os.path.join(Out_Dir, pathsmc, str(pathsmc)+ ".txt")
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ ".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file, angle, intensity, num_points, FPS, string))
     data_utils.start_process_pool(Misalignment_one, cmds, num_work)

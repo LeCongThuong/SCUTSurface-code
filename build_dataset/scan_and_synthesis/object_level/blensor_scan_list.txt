@@ -1,0 +1,12 @@
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/217.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/206.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/46.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/242.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/178.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/58.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/111.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/147.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/1.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/219.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/110.ply
+/mnt/hdd/thuonglc/mocban/woodblock-character-evaluation/data/normalized/meshes/51.ply

@@ -50,7 +50,7 @@ def Camera_Rotate_Scan(file_loc = None,                             # the ply or
                         Global_Noise_Smooth = 1.5,
                         # whether store camera normal
                         camera_normal = False,
-                        total_step = 2000000):
+                        total_step = 1000):
     
     print(file_loc)
     print(store_file)
@@ -83,7 +83,7 @@ def Camera_Rotate_Scan(file_loc = None,                             # the ply or
         camera.tof_xres = image_x
         camera.tof_yres = image_y
         camera.tof_max_dist = 100
-        camera.tof_focal_length = 20
+        camera.tof_focal_length = 50
 
     elif camera.scan_type==camera_type[3]:
         camera.kinect_noise_mu = Noise_mu
@@ -143,7 +143,7 @@ def Camera_Rotate_Scan(file_loc = None,                             # the ply or
                 bpy.data.objects.remove(item)
                 
         # spherical coordinates
-        elevation_deg = random.uniform(-90, 90)
+        elevation_deg = random.uniform(0, 90)
         distance = random.uniform(camera_diatance_min, camera_diatance_max)
         azimuth_deg   = random.uniform(-360, 360)
         #change the diatance,azimuth,elevation coords to Cartesian coords
@@ -310,7 +310,7 @@ for fileone in files:
                         Global_Noise_Scale = 0.25,
                         Global_Noise_Smooth = 1.5,
                         camera_normal = False,
-                        total_step = 200000)
+                        total_step = 1000)
     bpy.ops.object.select_all(action="DESELECT")
     bpy.data.objects["Object"].select = True
     bpy.ops.object.delete()

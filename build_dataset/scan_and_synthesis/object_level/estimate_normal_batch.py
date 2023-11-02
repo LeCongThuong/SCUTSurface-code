@@ -41,17 +41,16 @@ def Get_estimate_nonuniform(In_Dir, Out_Dir, num_work=1):
     cmds = []
     i = 0
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+".txt")
-            viewpoint_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            concate_file = ptsssss_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir))
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            shutil.copyfile(fileidx_file, fileidx_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
-            shutil.copyfile(viewpoint_file, viewpoint_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file,  string))
-            i += 1
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+ "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc)+".txt")
+        viewpoint_file = os.path.join(In_Dir, pathsmc, "viewpoint.txt")
+        concate_file = ptsssss_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir))
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        shutil.copyfile(fileidx_file, fileidx_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
+        shutil.copyfile(viewpoint_file, viewpoint_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
+        string = str(i) + ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file,  string))
+        i += 1
     data_utils.start_process_pool(estimate_one, cmds, num_work)
 
 
@@ -63,18 +62,17 @@ def Get_estimate_noise(anoise, In_Dir, In_non_dir, Out_Dir, num_work=1):
     print(In_Dir)
     print(data_utils.path_name(In_Dir))
     for pathsmc in tqdm(data_utils.path_name(In_Dir)):
-        print(pathsmc)
-        for pathobj in data_utils.path_name(os.path.join(In_Dir, pathsmc)):
-            fileidx_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_split.txt")
-            ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathobj) ,str(pathobj)+ "_"+str(anoise)+".txt")
-            viewpoint_file = os.path.join(In_non_dir, pathsmc, str(pathobj) ,"viewpoint.txt")
-            concate_file = ptsssss_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir))
-            os.makedirs(os.path.dirname(concate_file),exist_ok=True)
-            shutil.copyfile(fileidx_file, fileidx_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
-            string = str(i) +'/'+ str(fileslen) + ' -----> ' + ptsssss_file
-            cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file,  string))
-            i += 1
+        fileidx_file = os.path.join(In_Dir, pathsmc, str(pathsmc) + "_split.txt")
+        ptsssss_file = os.path.join(In_Dir, pathsmc, str(pathsmc) + "_"+str(anoise)+".txt")
+        viewpoint_file = os.path.join(In_non_dir, pathsmc,"viewpoint.txt")
+        concate_file = ptsssss_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir))
+        os.makedirs(os.path.dirname(concate_file),exist_ok=True)
+        shutil.copyfile(fileidx_file, fileidx_file.replace(os.path.abspath(In_Dir), os.path.abspath(Out_Dir)))
+        string = str(i) +  ' -----> ' + ptsssss_file
+        cmds.append((fileidx_file, ptsssss_file, viewpoint_file, concate_file,  string))
+        i += 1
     data_utils.start_process_pool(estimate_one, cmds, num_work)
+
 
 
 if __name__=='__main__':
@@ -97,5 +95,7 @@ if __name__=='__main__':
     Get_estimate_nonuniform(In_Nonuniform_Dir, Out_Nonuniform_Normal_Dir, num_work=args.num_worker)
     # 0.001  0.003  0.006  
     Get_estimate_noise(0.001, In_Noise_Dir, In_Nonuniform_Dir, Out_Noise_Normal_Dir, num_work=args.num_worker)
+    # print("Done")
     Get_estimate_noise(0.003, In_Noise_Dir, In_Nonuniform_Dir, Out_Noise_Normal_Dir, num_work=args.num_worker)
+    # print("Done")
     Get_estimate_noise(0.006, In_Noise_Dir, In_Nonuniform_Dir, Out_Noise_Normal_Dir, num_work=args.num_worker)
