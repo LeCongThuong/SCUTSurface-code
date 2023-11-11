@@ -123,7 +123,7 @@ def howmuchpoint(filename, missing):
     elif 'ordinary' in filename:
         fflen = 120000 * (1-missing)
     else:
-        fflen = 250000 * (1-missing)
+        fflen = 40000 * (1-missing)
     return fflen
 
 
